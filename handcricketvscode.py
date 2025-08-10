@@ -11,10 +11,10 @@ class HandCricketDB:
                 password=self.DB_CONFIG["password"]
             )
             cursor = sql_server.cursor()
-            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {self.DB_CONFIG['database']}")
+            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {self.DB_CONFIG['database']}")                                                                                                                                                                                                           
             cursor.close()
             sql_server.close()
-            print(f"Database '{self.DB_CONFIG['database']}' has been created")
+            print(f"Database '{self.DB_CONFIG['database']}' has been created/loaded successfully.")
         except Error as e:
             print(f"Database could not be created due to error: {e}")
             exit(1)
@@ -75,7 +75,7 @@ class HandCricketDB:
               INSERT INTO player_profile
               (name, lifetime_runs, lifetime_wickets, total_matches,
                total_wins, total_losses, total_draws, avg_runs)
-              VALUES (%s, %s, %s, %s, %s, %s, %s, %s) \
+              VALUES (%s, %s, %s, %s, %s, %s, %s, %s) 
               """
         vals = (
             player_name,
@@ -538,20 +538,13 @@ class GamePlay:
         return random.randint(self.min_choice, self.max_choice)
 
     def intro(self):
-        print(f"\nWelcome to AVG Hand Cricket, {self.name}! \nTutorial: \n  Choose odd or even,")
-        print("  :AI will choose the opposite of what you will choose \n  :If the sum of the numbers corresponds to what you choose then you'll get the opportunity to choose to bat or bowl")
-        print("  :There will be two innings from bat to bowl or bowl to bat")
-        print("  :Using the same numbers will drop a wicket \n  :Each number will add to your total runs")
-        print("  :At the end, who has the highest amount of runs wins!")
-        print("  :Note that in case both Player and AI choose 0, it will lead to the 1 or 2 rule-which means that only 1 or 2 is allowed - but they don't count as runs!")
-        print("  :In case of tie, a super over will occur! super over means only 1 over with just 6 balls!")
-        print("\nHave a great time playing!!!")
+        print(f"\nWelcome to AVG Hand Cricket, {self.name}!")
         print("- Prattik | XII-'A' SAP JEE".rjust(self.score_alignment))
 
     def match_over(self, game_var):
         while True:
             try:
-                game_var['over'] = int(input("Enter the amount of overs: "))
+                game_var['over'] = int(input("\nEnter the amount of overs: "))
                 if game_var['over'] < 1:
                     print("Enter a number greater than 0")
                     continue
@@ -719,6 +712,7 @@ class GamePlay:
                     self.commentator.wicket_commentary(self.name, bowler = "AI")
                     print(f"First Innings Over \n{self.name} has hit {game_var['player_runs_1stinn']} runs")
                     game_var['lifetime_wickets'] += 1
+                    break
 
                 if player_choice == 0 and ai_choice == 0:
                     player_12decision, ai_12decision = self.one_or_two()
@@ -751,6 +745,7 @@ class GamePlay:
             for i in range(1, game_var['balls'] + 1):
                 if game_var['player_runs_2ndinn'] > game_var['ai_runs_1stinn']:
                     print(f"{self.name} has achieved the target runs")
+                    print("\nSecond Innings Over")
                     break
 
                 player_choice = self.input_num()
@@ -783,7 +778,7 @@ class GamePlay:
                 if self.commentator and self.commentator.enabled:
                     self.commentator.run_commentary(player_choice)
                 print(f"Current player runs: {game_var['player_runs_2ndinn']}".rjust(self.score_alignment))
-            print(f"\nSecond Innings over \n{self.name} has hit {game_var['player_runs_2ndinn']} runs")
+            print(f"\n{self.name} has hit {game_var['player_runs_2ndinn']} runs")
 
         elif game_var['toss_result'] == "batting":
             print("\nSecond Innings:")
@@ -792,6 +787,7 @@ class GamePlay:
             for i in range(1, game_var['balls'] + 1):
                 if game_var['ai_runs_2ndinn'] > game_var['player_runs_1stinn']:
                     print("AI has achieved the target runs")
+                    print("\nSecond Innings Over")
                     break
 
                 player_choice = self.input_num()
@@ -822,7 +818,7 @@ class GamePlay:
                 if self.commentator and self.commentator.enabled:
                     self.commentator.run_commentary(ai_choice)
                 print(f"Current AI runs: {game_var['ai_runs_2ndinn']}".rjust(self.score_alignment))
-            print(f"\nSecond Innings Over \nAI has hit {game_var['ai_runs_2ndinn']} runs")
+            print(f"\nAI has hit {game_var['ai_runs_2ndinn']} runs")
 
     def super_over(self, game_var):
         while True:
@@ -981,14 +977,16 @@ class GameManager:
     def get_choice(self):
         while True:
             try:
-                print("\nType yes to play a match. \nType no to quit. \nType profile to view the player profile.")
+                print("\n--- Main Menu ---")
+                print("Type tutorial to view the tutorial.")
+                print("Type yes to play a match. \nType no to quit. \nType profile to view the player profile.")
                 print("Type save to save current game state.")
                 print("Type load to load previous game state.")
                 print("Type leaderboard to view global stats.")
                 print("Type switch to switch player account.")
                 print("Type settings to change commentary or difficulty.")
                 choice = input(": ").strip().lower()
-                if choice in ("yes", "no", "profile", "save", "load", "leaderboard", "switch", "settings"):
+                if choice in ("tutorial","yes", "no", "profile", "save", "load", "leaderboard", "switch", "settings"):
                     return choice
                 print("Invalid input")
             except KeyboardInterrupt:
@@ -1098,6 +1096,18 @@ class Commentator:
         self.say([
             f"{out_batsman} is OUT! Bowled by {bowler}!",
             f"{out_batsman} departs! What a delivery from {bowler}!",
+            f"What a catch! {out_batsman} is gone, bowled by {bowler}!",
+            f"{out_batsman} has been dismissed! {bowler} takes the wicket!",
+            f"{out_batsman} is back to the pavilion! {bowler} strikes",
+            f"{out_batsman} is out! {bowler} with a brilliant delivery!",
+            f"{out_batsman} has been sent packing! {bowler} gets the wicket!",
+            f"{out_batsman} is gone! {bowler} with a fantastic ball!",
+            f"{out_batsman} is out! {bowler} takes the wicket with a superb delivery!",
+            f"What a day he must be having right now! Superb bowling from {bowler}!",
+            f"He must be feeling on top of the world right now! {bowler} gets the wicket!",
+            f"He must've missed his morning grace! {out_batsman} is out!",
+            f"{out_batsman} is out! {bowler} bowls a peach of a delivery!",
+            f"{out_batsman} is out! {bowler} with a brilliant delivery!",
             f"Wicket! {bowler} gets rid of {out_batsman}!"
         ])
 
@@ -1189,7 +1199,19 @@ def main(game_manager):
     global game_var, all_match_data, manager, name, gameplay, commentator, display, profile
     while True:
         choice = game_manager.get_choice()
-        if choice == "yes":
+
+        if choice == "tutorial":
+            print("\nTutorial: \nChoose Odd or even:")
+            print("  :You will be playing against an AI opponent")
+            print("  :AI will choose the opposite of what you will choose \n  :If the sum of the numbers corresponds to what you choose then you'll get the opportunity to choose to bat or bowl")
+            print("  :There will be two innings from bat to bowl or bowl to bat")
+            print("  :Using the same numbers will drop a wicket \n  :Each number will add to your total runs")
+            print("  :At the end, who has the highest amount of runs wins!")
+            print("  :Note that in case both Player and AI choose 0, it will lead to the 1 or 2 rule-which means that only 1 or 2 is allowed - but they don't count as runs!")
+            print("  :In case of tie, a super over will occur! super over means only 1 over with just 6 balls!")
+            print("\nHave a great time playing!!!")
+
+        elif choice == "yes":
             game_var['total_matches_played'] += 1
             game_manager.reset_game(game_var)
             toss_result = gameplay.toss(game_var)
@@ -1335,9 +1357,22 @@ def main(game_manager):
 
         else:
             print("Invalid Input")
+def animated_print(*args, **kwargs):
+    sep = kwargs.get("sep", " ")
+    end = kwargs.get("end", "\n")
+    text = sep.join(str(a) for a in args)
+    for ch in text:
+        sys.stdout.write(ch)
+        sys.stdout.flush()
+        time.sleep(0.02)
+    sys.stdout.write(end)
+    sys.stdout.flush()
 if __name__ == "__main__":
     import random
+    import os
+    import builtins
     import time
+    import sys
     import mysql.connector
     from mysql.connector import Error
     import json
@@ -1346,9 +1381,16 @@ if __name__ == "__main__":
     from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
     from openpyxl.utils import get_column_letter
 
-    folder_path_for_json = r"C:\Users\pratt\OneDrive\Documents\Hand_cricket_saves\json_saves"
-    folder_path_for_excel = r"C:\Users\pratt\OneDrive\Documents\Hand_cricket_saves\excel_saves"
+    base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Hand_cricket_saves")
+    folder_path_for_json = os.path.join(base_dir, "json_saves")
+    folder_path_for_excel = os.path.join(base_dir, "excel_saves")
 
+    os.makedirs(folder_path_for_json, exist_ok=True)
+    os.makedirs(folder_path_for_excel, exist_ok=True)
+
+    original_print = print
+    builtins.print = animated_print
+    
     difficulty = ""
 
     while True:
