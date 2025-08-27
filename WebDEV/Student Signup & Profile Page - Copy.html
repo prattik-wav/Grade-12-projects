@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Portal</title>
+        <link rel="stylesheet" href="DataForm.css">
+    </head>
+    <body>
+        <div class="grid-container">
+            <header>
+                <h1 id="portal"><u>Student Portal</u></h1>
+                <p>Welcome! This is a <em>Student Portal</em>.<br><br>
+                I created this website <mark>*Prattik</mark> as a method for students to signup and then store their data in a table.<br>
+                All using my knowledge of <em>HTML 5</em>.
+                </p>
+                <nav>
+                    <h3><u>Table Of Contents</u>:</h3>
+                    <table id="toctable">
+                        <tr>
+                            <th>1.<a href="#media">Media</a></th>
+                        </tr>
+
+                        <tr>
+                            <th>2.<a href="#toggleSignupBtn">Signup Page</a></th>
+                        </tr>
+
+                        <tr>
+                            <th>3.<a href="#toggleProfileBtn">Profile Table</a></th>
+                        </tr>
+                    </table>
+                </nav>
+            </header>
+            <main>
+                <div id="media" class="media">
+                    <h2>Media:</h2>
+                    <div class="media-content">
+
+                        <div class="media-item">
+                            <h3>Background Music:</h3>
+                            <p>
+                            But first! I think we need some music to go further!
+                            </p>
+                            <audio preload="auto" controls>
+                                <source src="https://cdn.pixabay.com/audio/2023/07/30/audio_e0908e8569.mp3" type="audio/mpeg">
+                                Your Browser doesn't support the audio element.
+                            </audio><br>
+                        </div>
+                        <div class="media-item">
+                            <p>Actually a Video too!</p>
+                            <h3>Intro Video</h3>
+                            <video width="400" preload="auto" controls>
+                                <source src="https://videos.pexels.com/video-files/2297636/2297636-uhd_2560_1440_30fps.mp4" type="video/mp4">
+                                Your Browser doesn't support the video element.
+                            </video><br>
+                        </div>
+
+                        <div class="media-item">
+                            <h3>Recommended links:</h3>
+                            <p>I recommend these videos for more knowledge!</p>
+                            <iframe
+                                src="https://www.youtube.com/embed/it1rTvBcfRg?si=YAkqS07yR3dIPujW" 
+                                title="Intro to HTML 5" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div style="margin:20px; text-align:center;">
+                <button id="toggleSignupBtn">Hide Signup Form</button>
+                <button id="toggleProfileBtn">Hide Profile Table</button>
+            </div>
+            <div id="signup" class="signup">
+                <h2>Signup Form:</h2>
+                <form id="signupform">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="username" placeholder="Enter your name" required><br><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
+
+                    <label for="pass">Password:</label>
+                    <input type="password" id="pass" name="password" placeholder="Enter your password" required><br>
+
+                    <p>Gender:</p>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" required>
+                    <label for="female">Female</label><br><Br>
+
+                    <p>Hobbies:</p>
+                    <input type="checkbox" id="read" name="hobby" value="reading">
+                    <label for="read">Reading:</label><br>
+                    <input type="checkbox" id="code" name="hobby" value="coding">
+                    <label for="code">Coding:</label><br>
+                    <input type="checkbox" id="sport" name="hobby" value="sports">
+                    <label for="sport">Sports:</label><br><br>
+
+                    <label for="country">Country:</label>
+                    <select id="country" name="country">
+                        <option value="India" selected>India</option>
+                        <option value="UK">UK</option>
+                        <option value="USA">USA</option>            
+                        <option value="Australia">Australia</option>
+                        <option value="Russia">Russia</option>
+                        <option value="China">China</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Portugal">Portugal</option>
+                    </select><br><br>
+
+                    <label for="profilePic">Upload Profile Picture:</label>
+                    <input type="file" id="profilePic" name="profilePic" accept="image/*" required><br>
+                    <img id="preview" width="100" alt="Profile Preview" style="display:none; border:2px solid black; border-radius:8px; margin-top:10px;"><br><br>
+
+                    <label for="bio">Bio:</label><br>
+                    <textarea id="bio" name="bio" rows="4" cols="30" placeholder="Type anything about yourself!" required></textarea><br><br>
+
+                    <input type="submit" value="submit">
+                    <input type="reset" value="reset">
+                </form>
+            </div>
+            <div id="profile" class="profile">
+                <h2>Student Profile:</h2>
+                <table id="profiletable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Hobbies</th>
+                        <th>Country</th>
+                        <th>Profile Picture</th>
+                        <th>Bio</th>
+                    </tr>
+                    <tr>
+                        <td>Prattik</td>
+                        <td>prattik@gmail.com</td>
+                        <td>Male</td>
+                        <td>Coding</td>
+                        <td>India</td>
+                        <td><img src="https://dn721608.ca.archive.org/0/items/whatsapp-smiling-guy-i-accidentally-made/whatsapp%20generic%20person%20dark.jpg" alt="profile picture" width="100"></td>
+                        <td>12th Grader</td>
+                    </tr>
+                    <tr>
+                        <td>Ronaldo</td>
+                        <td>ronaldo@outlook.com</td>
+                        <td>Male</td>
+                        <td>Sports</td>
+                        <td>Portugal</td>
+                        <td><img src="https://dn721608.ca.archive.org/0/items/whatsapp-smiling-guy-i-accidentally-made/whatsapp%20generic%20person%20dark.jpg" alt="profile picture" width="100"></td>
+                        <td>Professional Footballer</td>
+                    </tr>
+                </table><br><br>
+            </div>
+
+            <aside id="fact">
+                <p><strong>Fun Fact:</strong> Ronaldo has scored <mark>850+</mark> career goals ⚽</p>
+            </aside>
+
+            <footer>
+                    <p><span style="color:black">© 2025 Prattik's Student Profile</span></p>
+            </footer>
+        </div>
+        <script src="C:\Users\pratt\OneDrive\Documents\Visual Studio 2022\Code Snippets\dataformbrain.js"></script>
+    </body>
+</html>
