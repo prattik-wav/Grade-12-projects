@@ -1738,14 +1738,16 @@ def player_login(db_handler):
                 stored_password = db_handler.get_password(name)
                 authenticated = False
                 print("You have 3 attempts to enter your password.")
+                i=0
 
                 for attempt in range(3):
+                    i+=1
                     entered_pass = pwinput.pwinput("\nEnter your password: ").strip()
                     if entered_pass == stored_password:
                         authenticated = True
                         break
-                    else:
-                        print("Incorrect password, Try again.")
+                    elif i < 3:
+                        print(f"Incorrect password, You have {3-i} attempts left. Try again.")
                 if not authenticated:
                     print("Too many failed attempts. Exiting login.")
                     return None
@@ -2106,4 +2108,5 @@ if __name__ == "__main__":
     time.sleep(1)
 
     main(game_manager)
+
 
