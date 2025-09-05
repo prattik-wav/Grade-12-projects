@@ -1164,7 +1164,7 @@ class GameManager:
             choice = input("Enter choice (1/2/3/4/5): ").strip()
 
             if choice == "1":
-                self.toggle_commentary()
+                self.toggle_commentary(game_var)
             elif choice == "2":
                 self.change_difficulty(game_var)
             elif choice == "3":
@@ -1176,7 +1176,7 @@ class GameManager:
             else:
                 print("Invalid choice. Please select 1, 2, 3, 4, or 5.")
 
-    def toggle_commentary(self):
+    def toggle_commentary(self, game_var):
         current = self.gameplay.commentator.enabled
         self.gameplay.commentator.enabled = not current
         game_var["commentary_enabled"] = self.gameplay.commentator.enabled
@@ -2106,3 +2106,4 @@ if __name__ == "__main__":
     time.sleep(1)
 
     main(game_manager)
+
