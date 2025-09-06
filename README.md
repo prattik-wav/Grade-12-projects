@@ -8,5 +8,5 @@ with strike rate, run rate, economy
 player login system with secure password
 custom concepts like one/two rule and win rate calc introduced
 typewriter animation
-2000~ lines of code with 7 classes consisting of 50+ functions and 6 individual functions used
+2000~ lines of code with 7 classes consisting of 50+ functions and 6 individual functions 
 - Prattik
