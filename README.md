@@ -7,6 +7,6 @@ Leaderboard,settings,commentary features along with multi-user support
 with strike rate, run rate, economy
 player login system with secure password
 custom concepts like one/two rule and win rate calc introduced
-all print statements are animated like a typewriter
+typewriter animation
 2000~ lines of code with 7 classes consisting of 50+ functions and 6 individual functions used
 - Prattik
