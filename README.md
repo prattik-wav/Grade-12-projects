@@ -11,3 +11,5 @@ custom concepts like one/two rule and win rate calc introduced
 typewriter animation
 3000~ lines of code with 13 classes consisting of 106 functions 
 - Prattik
+
+required assets: https://www.mediafire.com/folder/lsqs3e9oiuu15/Assets
