@@ -676,7 +676,7 @@ class GamePlay:
             except KeyboardInterrupt:
                 console.print(f"\n[red]Can't quit here[/red]")
 
-    def get_ai_choice(self, player_prev_choice=None, ai_role=None):
+    def get_ai_choice(self, player_prev_choice = None, ai_role = None):
         if self.difficulty == "easy":
             return random.randint(self.min_choice, self.max_choice)
 
