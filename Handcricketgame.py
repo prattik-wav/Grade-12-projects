@@ -2816,7 +2816,7 @@ def login_menu(db_handler, name):
             return False
         else:
             print(f"Invalid choice.")
-def player_login(db_handler):
+def player_login(db_handler, game_state):
     while True:
         try:
             name = Prompt.ask(f"\n[yellow]Enter your name[/yellow] [cyan](max 30 characters)[/cyan][green]:[/green] ").strip().title()
@@ -2858,7 +2858,7 @@ def player_login(db_handler):
                 if reset == "yes":
                     console.print(f"[cyan italic]Resetting profile and match history...[/cyan italic]")
                     time.sleep(2)
-                    game_manager.reset_game(game_state)
+                    game_state.reset_lifetime()
                     profile = {
                         "Lifetime runs": 0,
                         "Lifetime wickets": 0,
@@ -2921,7 +2921,7 @@ def player_login(db_handler):
         except KeyboardInterrupt:
             console.print(f"\n[bold red]Game interrupted! try again[/bold red]")
 def main(game_manager, game_state):
-    global manager, name, gameplay, commentator, display
+    global manager, name, gameplay, commentator, display, achievement_manager
     while True:
         choice = game_manager.get_choice()
 
@@ -2957,7 +2957,7 @@ def main(game_manager, game_state):
         elif choice == "quit":
             console.print(f"[bold yellow italic]Thank you for playing[/bold yellow italic] [blue]{name}[/blue][bold yellow italic]![/bold yellow italic]")
             pygame.mixer.music.stop()
-            achievement_manager.save_achievements()
+            game_manager.achievement_manager.save_achievements()
             db_handler.close_db()
             break
 
@@ -2991,7 +2991,7 @@ def main(game_manager, game_state):
             console.print(f"\n[yellow italic]Attempting to switch...[/yellow italic]")
             time.sleep(2)
             achievement_manager = AchievementManager(db_handler, name)
-            new_name = player_login(db_handler)
+            new_name = player_login(db_handler, game_state)
             if not new_name:
                 console.print(f"\n[bold red]Login failed.[/bold red]")
                 continue
@@ -3153,7 +3153,7 @@ if __name__ == "__main__":
 
     game_state = GameState()
 
-    name = player_login(db_handler)
+    name = player_login(db_handler, game_state)
     if not name:
         console.print(f"\n[bold red]Login failed. Exiting game.[/bold red]")
         sys.exit()
